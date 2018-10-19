@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class IngredientsController < OpenReadController
-  before_action :set_ingredient, only: %i[:show, :update, :destroy]
+class IngredientsController < ApplicationController
+  before_action :set_ingredient, only: %i[show update destroy]
 
   # GET /ingredients
   def index
@@ -17,7 +17,6 @@ class IngredientsController < OpenReadController
 
   # POST /ingredients
   def create
-    #@ingredient = Ingredient.new(ingredient_params)
     @ingredient = Ingredient.new(ingredient_params)
 
     if @ingredient.save
@@ -41,10 +40,11 @@ class IngredientsController < OpenReadController
     @ingredient.destroy
   end
 
-  private
+
+    private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_ingredient
-      #@ingredient = Ingredient.find(params[:id])
       @ingredient = Ingredient.find(params[:id])
     end
 
@@ -52,4 +52,5 @@ class IngredientsController < OpenReadController
     def ingredient_params
       params.require(:ingredient).permit(:name, :unit)
     end
+
 end
