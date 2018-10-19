@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class IngredientsController < ProtectedController
-  before_action :set_ingredient, only: [:show, :update, :destroy]
+class IngredientsController < OpenReadController
+  before_action :set_ingredient, only: %i[:show, :update, :destroy]
 
   # GET /ingredients
   def index
@@ -17,10 +17,11 @@ class IngredientsController < ProtectedController
 
   # POST /ingredients
   def create
+    #@ingredient = Ingredient.new(ingredient_params)
     @ingredient = Ingredient.new(ingredient_params)
 
     if @ingredient.save
-      render json: @ingredient, status: :created, location: @ingredient
+      render json: @ingredient, status: :created
     else
       render json: @ingredient.errors, status: :unprocessable_entity
     end
@@ -43,6 +44,7 @@ class IngredientsController < ProtectedController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ingredient
+      #@ingredient = Ingredient.find(params[:id])
       @ingredient = Ingredient.find(params[:id])
     end
 
