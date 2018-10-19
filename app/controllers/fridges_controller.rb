@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FridgesController < ApplicationController
   before_action :set_fridge, only: [:show, :update, :destroy]
 
@@ -18,7 +20,7 @@ class FridgesController < ApplicationController
     @fridge = Fridge.new(fridge_params)
 
     if @fridge.save
-      render json: @fridge, status: :created, location: @fridge
+      render json: @fridge, status: :created
     else
       render json: @fridge.errors, status: :unprocessable_entity
     end
