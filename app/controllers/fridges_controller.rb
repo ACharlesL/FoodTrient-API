@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class FridgesController < ApplicationController
-  before_action :set_fridge, only: [:show, :update, :destroy]
+class FridgesController < ProtectedController
+  before_action :set_fridge, only: %i[update destroy]
 
   # GET /fridges
   def index
@@ -12,12 +12,12 @@ class FridgesController < ApplicationController
 
   # GET /fridges/1
   def show
-    render json: @fridge
+    render json: Fridge.find(params[:id])
   end
 
   # POST /fridges
   def create
-    @fridge = Fridge.new(fridge_params)
+    @fridge = current_user.fridges.build(fridge_params)
 
     if @fridge.save
       render json: @fridge, status: :created
@@ -40,14 +40,15 @@ class FridgesController < ApplicationController
     @fridge.destroy
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_fridge
-      @fridge = Fridge.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_fridge
+    @fridge = current_user.fridges.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def fridge_params
-      params.require(:fridge).permit(:name)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def fridge_params
+    params.require(:fridge).permit(:ingredient_id)
+  end
+
+  private :set_fridge, :fridge_params
 end
