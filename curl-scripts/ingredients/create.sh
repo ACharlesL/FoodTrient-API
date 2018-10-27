@@ -6,7 +6,7 @@ curl "http://localhost:4741/ingredients" \
   --header "Content-Type: application/json" \
   --header "Authorization: Token token=${TOKEN}" \
   --data '{
-    "fridge": {
+    "ingredient": {
       "name": "'"${NAME}"'",
       "unit": "'"${UNIT}"'"
     }

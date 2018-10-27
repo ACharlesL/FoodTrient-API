@@ -5,7 +5,7 @@ class FridgesController < ProtectedController
 
   # GET /fridges
   def index
-    @fridges = Fridge.all
+    @fridges = current_user.fridges.all
 
     render json: @fridges
   end
