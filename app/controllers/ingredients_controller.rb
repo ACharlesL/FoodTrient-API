@@ -17,7 +17,7 @@ class IngredientsController < ProtectedController
 
   # POST /ingredients
   def create
-    @ingredient = Ingredients.new(ingredient_params)
+    @ingredient = Ingredient.new(ingredient_params)
 
     if @ingredient.save
       render json: @ingredient, status: :created
